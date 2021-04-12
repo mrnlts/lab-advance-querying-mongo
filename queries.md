@@ -69,32 +69,32 @@ limit:
 
 ### 9. Order all the companies by their IPO price in a descending order.
 
-query: 
-projection:
-sort:
+query: {"ipo.valuation_amount": {$exists: true, $ne: null}}
+projection: {"name": 1, "ipo.valuation_amount": 1, "number_of_employees": 1, "_id": 0}
+sort: {"ipo.valuation_amount" : -1}
 skip:
 limit:
 
 ### 10. Retrieve the 10 companies with most employees, order by the `number of employees`
 
-query: 
+query:
 projection:
-sort:
+sort: {"number_of_employees": -1}
 skip:
-limit:
+limit: 10
 
 ### 11. All the companies founded on the second semester of the year. Limit your search to 1000 companies.
 
-query: 
+query: {"founded_month": {$gt: 6}}
 projection:
 sort:
 skip:
-limit:
+limit: 1000
 
 ### 12. All the companies founded before 2000 that have an acquisition amount of more than 10.000.000
 
-query: 
-projection:
+query: {"founded_year": {$lt: 2000}, "acquisition.price_amount": {$gt: 10000000}}
+projection: {"name": 1, "founded_year": 1, "acquisition.price_amount": 1, "_id": 0}
 sort:
 skip:
 limit:
