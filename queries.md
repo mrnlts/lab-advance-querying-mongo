@@ -37,15 +37,15 @@ limit:
 
 ### 5. All the companies that have less than 1000 employees and have been founded before 2005. Order them by the number of employees and limit the search to 10 companies.
 
-query: 
-projection:
-sort:
+query: {"number_of_employees": {$lt: 1000}, "founded_year": {$lt: 2005}}
+projection: {"name": 1, "number_of_employees": 1, "founded_year": 1, "_id": 0}
+sort: {"number_of_employees": -1}
 skip:
-limit:
+limit: 10
 
 ### 6. All the companies that don't include the `partners` field.
 
-query: 
+query: {"partners": {$exists:false}}
 projection:
 sort:
 skip:
@@ -53,7 +53,7 @@ limit:
 
 ### 7. All the companies that have a null type of value on the `category_code` field.
 
-query: 
+query: {"category_code": {$eq: null}}
 projection:
 sort:
 skip:
@@ -61,8 +61,8 @@ limit:
 
 ### 8. All the companies that have at least 100 employees but less than 1000. Retrieve only the `name` and `number of employees` fields.
 
-query: 
-projection:
+query: {"number_of_employees": {$gte: 100, $lt: 1000}}
+projection: {"name": 1, "number_of_employees": 1, "_id": 0}
 sort:
 skip:
 limit:
